@@ -18,43 +18,68 @@ const std::string FlashcardTest::word = "visual";
 const std::string FlashcardTest::translation = "vizualny";
 
 
-TEST_F(FlashcardTest, getWord)
+TEST_F(FlashcardTest, getWord_WhenCalled_ReturnsWordValue)
 {
 	EXPECT_EQ(word, fc.getWord());
 }
 
-TEST_F(FlashcardTest, getTranslation)
+TEST_F(FlashcardTest, getTranslation_WhenCalled_ReturnsTranslationValue)
 {
 	EXPECT_EQ(translation, fc.getTranslation());
 }
 
-TEST_F(FlashcardTest, getGoodAnswers)
+TEST_F(FlashcardTest, getGoodAnswers_ByDefault_ReturnsZero)
+{
+	Flashcard fc1("", "");
+	EXPECT_EQ(0, fc1.getGoodAnswers());
+}
+
+TEST_F(FlashcardTest, getGoodAnswers_WhenCalled_ReturnsGoodAnswersValue)
 {
 	EXPECT_EQ(goodAnswers, fc.getGoodAnswers());
 }
 
-TEST_F(FlashcardTest, getBadAnswers)
+TEST_F(FlashcardTest, getBadAnswers_ByDefault_ReturnsZero)
+{
+	Flashcard fc1("", "");
+	EXPECT_EQ(0, fc1.getBadAnswers());
+}
+
+TEST_F(FlashcardTest, getBadAnswers_WhenCalled_ReturnsBadAnswersValue)
 {
 	EXPECT_EQ(badAnswers, fc.getBadAnswers());
 }
 
-TEST_F(FlashcardTest, addGoodAnswer)
+TEST_F(FlashcardTest, addGoodAnswer_WhenCalled_IncrementsGoodAnswersValue)
 {
 	fc.addGoodAnswer();
 	EXPECT_EQ(goodAnswers + 1, fc.getGoodAnswers());
 }
 
-TEST_F(FlashcardTest, addBadAnswer)
+TEST_F(FlashcardTest, addBadAnswer_WhenCalled_IncrementsBadAnswersValue)
 {
 	fc.addBadAnswer();
 	EXPECT_EQ(badAnswers + 1, fc.getBadAnswers());
 }
 
-TEST_F(FlashcardTest, CopyConstructor)
+TEST_F(FlashcardTest, Constructor_Always_InitializesEverything)
+{
+	EXPECT_EQ(word, fc.getWord());
+	EXPECT_EQ(translation, fc.getTranslation());
+	EXPECT_EQ(goodAnswers, fc.getGoodAnswers());
+	EXPECT_EQ(badAnswers, fc.getBadAnswers());
+}
+
+TEST_F(FlashcardTest, CopyConstructor_Always_CopyWordAndTranslation)
 {
 	Flashcard fc1(fc);
 	EXPECT_EQ(fc1.getWord(), fc.getWord());
 	EXPECT_EQ(fc1.getTranslation(), fc.getTranslation());
+} 
+
+TEST_F(FlashcardTest, CopyConstructor_Always_SetsGoodAnswersAndBadAnswersToZero)
+{
+	Flashcard fc1(fc);
 	EXPECT_EQ(fc1.getGoodAnswers(), 0);
 	EXPECT_EQ(fc1.getBadAnswers(), 0);
 } 

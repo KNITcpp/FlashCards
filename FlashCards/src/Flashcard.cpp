@@ -36,7 +36,6 @@ std::string Flashcard::getWord() const noexcept
 	return word_;
 }
 
-
 std::string Flashcard::getTranslation() const noexcept
 {
 	return translation_;
