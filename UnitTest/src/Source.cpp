@@ -1,11 +1,22 @@
 #include "gtest/gtest.h"
-#include <cstdio>
+#include <iostream>
 
-GTEST_API_ int main(int argc, char **argv) {
-  printf("Running main() from gtest_main.cc\n");
-  testing::InitGoogleTest(&argc, argv);
-	int result=RUN_ALL_TESTS();
-	//std::getchar();
+
+void forBegginers()
+{
+	std::cout << "You can do whatever you want\n";
+
+
+	std::cout << "============================\n";
+}
+
+GTEST_API_ int main(int argc, char **argv)
+{
+	forBegginers();
+	std::cout << ("Running main() from gtest_main.cc\n");
+	testing::InitGoogleTest(&argc, argv);
+	int result = RUN_ALL_TESTS();
+	std::getchar();
 	return result;
 }
 
