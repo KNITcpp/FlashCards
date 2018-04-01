@@ -19,8 +19,3 @@ GTEST_API_ int main(int argc, char **argv)
 	std::getchar();
 	return result;
 }
-
-TEST(testing, testing)
-{
-	ASSERT_TRUE(true);
-}
