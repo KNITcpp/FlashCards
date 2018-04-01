@@ -50,6 +50,12 @@ TEST_F(FlashcardTest, getBadAnswers_WhenCalled_ReturnsBadAnswersValue)
 	EXPECT_EQ(badAnswers, fc.getBadAnswers());
 }
 
+TEST_F(FlashcardTest, getLastUsages_WhenCalled_ReturnsTimeVector)
+{
+	timeVector tv;
+	EXPECT_EQ(tv, fc.getLastUsages());
+}
+
 TEST_F(FlashcardTest, addGoodAnswer_WhenCalled_IncrementsGoodAnswersValue)
 {
 	fc.addGoodAnswer();
@@ -62,6 +68,14 @@ TEST_F(FlashcardTest, addBadAnswer_WhenCalled_IncrementsBadAnswersValue)
 	EXPECT_EQ(badAnswers + 1, fc.getBadAnswers());
 }
 
+TEST_F(FlashcardTest, addUsage_WhenCalled_InsertsElemntIntoLastUsages)
+{
+	std::chrono::system_clock::time_point epochTime;
+	fc.addUsage(epochTime);
+	timeVector tv = fc.getLastUsages();
+	EXPECT_EQ(epochTime, tv.back());
+}
+
 TEST_F(FlashcardTest, Constructor_Always_InitializesEverything)
 {
 	EXPECT_EQ(word, fc.getWord());
@@ -70,7 +84,7 @@ TEST_F(FlashcardTest, Constructor_Always_InitializesEverything)
 	EXPECT_EQ(badAnswers, fc.getBadAnswers());
 }
 
-TEST_F(FlashcardTest, CopyConstructor_Always_CopyWordAndTranslation)
+TEST_F(FlashcardTest, CopyConstructor_Always_CopiesWordAndTranslation)
 {
 	Flashcard fc1(fc);
 	EXPECT_EQ(fc1.getWord(), fc.getWord());

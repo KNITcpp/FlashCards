@@ -1,7 +1,8 @@
 ﻿#include "Flashcard.h"
+#include <chrono>
 
 
-Flashcard::Flashcard(std::string word, std::string translation, const int goodAnswers, const int badAnswers) noexcept :
+Flashcard::Flashcard(const std::string& word, const std::string& translation, const int goodAnswers, const int badAnswers) noexcept :
 	word_(word),
 	translation_(translation),
 	goodAnswers_(goodAnswers),
@@ -64,4 +65,9 @@ void Flashcard::addGoodAnswer() noexcept
 void Flashcard::addBadAnswer() noexcept
 {
 	++badAnswers_;
+}
+
+void Flashcard::addUsage(const std::chrono::system_clock::time_point& usageDate)
+{
+	lastUsages_.push_back(usageDate);
 }
