@@ -9,11 +9,11 @@ class Flashcard
 {
 public:
 	Flashcard(const std::string& word, const std::string& translation, const int goodAnswers = 0, const int badAnswers = 0) noexcept;
-	Flashcard(const Flashcard& rhs) noexcept;
-	Flashcard(Flashcard&& rhs) noexcept;
+	Flashcard(const Flashcard& rhs) = default;
+	Flashcard(Flashcard&& rhs) = default;
 	virtual ~Flashcard() = default;
-	Flashcard& operator=(Flashcard&& other) = delete;
-	Flashcard& operator=(const Flashcard& rhs) = delete;
+	Flashcard& operator=(Flashcard&& other) = default;
+	Flashcard& operator=(const Flashcard& rhs) = default;
 
 	std::string getWord() const noexcept;
 	std::string getTranslation() const noexcept;
@@ -24,8 +24,8 @@ public:
 	void addBadAnswer() noexcept;
 	void addUsage(const std::chrono::system_clock::time_point& usageDate);
 private:
-	const std::string word_;
-	const std::string translation_;
+	std::string word_;
+	std::string translation_;
 	int goodAnswers_;
 	int badAnswers_;
 	timeVector lastUsages_;

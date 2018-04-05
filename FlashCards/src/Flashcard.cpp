@@ -12,26 +12,6 @@ Flashcard::Flashcard(const std::string& word, const std::string& translation, co
 
 }
 
-Flashcard::Flashcard(const Flashcard& rhs) noexcept :
-	word_(rhs.word_),
-	translation_(rhs.translation_),
-	goodAnswers_(0),
-	badAnswers_(0),
-	lastUsages_()
-{
-	
-}
-
-Flashcard::Flashcard(Flashcard&& rhs) noexcept
-	: word_(std::move(rhs.word_)),
-	translation_(std::move(rhs.translation_)),
-	goodAnswers_(rhs.goodAnswers_),
-	badAnswers_(rhs.badAnswers_),
-	lastUsages_(std::move(rhs.lastUsages_))
-{
-
-}
-
 std::string Flashcard::getWord() const noexcept
 {
 	return word_;
