@@ -69,13 +69,13 @@ static size_t WriteMemoryCallback(void *contents, size_t size, size_t nmemb, voi
   size_t realsize = size * nmemb;
   struct MemoryStruct *mem = (struct MemoryStruct*)userp;
  
-  mem->memory = (wchar_t*)realloc(mem->memory, mem->size + realsize + 1); //+1 for null character at the tail of memory
+  mem->memory = (wchar_t*)realloc(mem->memory, mem->size + realsize + sizeof(wchar_t)); //+sizeof(wchar_t) for null character at the tail of memory
   if(mem->memory == NULL)
     throw new std::exception("Not enough memory to save data fetched from web. ");
  
-  memcpy(&(mem->memory[mem->size]), contents, realsize);
+  memcpy(&(mem->memory[mem->size/sizeof(wchar_t)]), contents, realsize);
   mem->size += realsize;
-  mem->memory[mem->size] = 0; //mark tail of memory
+  mem->memory[mem->size/sizeof(wchar_t)] = 0; //mark tail of memory
  
   return realsize;
 }
@@ -88,8 +88,8 @@ void WebsiteFetcher::getWebsite()
 	CURL* handle;
 	handle=curl_easy_init(); 
 
-	curl_easy_setopt(handle, CURLOPT_FOLLOWLOCATION, 1L); //TODO: probably to delete
-	curl_easy_setopt(handle, CURLOPT_URL, "https://diki.pl"); //TODO: refactor link
+//	curl_easy_setopt(handle, CURLOPT_FOLLOWLOCATION, 1L); //TODO: probably to delete
+	curl_easy_setopt(handle, CURLOPT_URL, "https://www.diki.pl//slownik-angielskiego?q=dog"); //TODO: refactor link
 	curl_easy_setopt(handle, CURLOPT_WRITEFUNCTION, WriteMemoryCallback);
 	curl_easy_setopt(handle, CURLOPT_WRITEDATA, (void *)&chunk);
 	curl_easy_setopt(handle, CURLOPT_USERAGENT, "libcurl-agent/1.0"); // some servers don't like requests that are made without a user-agent field, so we provide one
@@ -105,7 +105,7 @@ void WebsiteFetcher::getWebsite()
 	else
 	{
 		std::wstring line;
-		for(int i=0; i<chunk.size; ++i)
+		for(int i=0; i<chunk.size/sizeof(wchar_t); ++i)
 		{
 			if(chunk.memory[i]==0) //end of line
 			{
