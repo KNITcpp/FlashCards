@@ -134,11 +134,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Round.cpp" />
     <ClCompile Include="src\Flashcard.cpp" />
     <ClCompile Include="src\Source.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Flashcard.h" />
+    <ClInclude Include="include\Round.h" />
+    <ClInclude Include="include\StudyMode.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
