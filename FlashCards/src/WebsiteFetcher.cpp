@@ -2,6 +2,9 @@
 #include <codecvt>
 #include "curl/curl.h"
 #include <exception>
+#include <iostream>
+#include <string>
+#include <locale>
 
 
 std::wstring WebsiteFetcher::downloadWebsite(const std::wstring& link)
@@ -60,22 +63,24 @@ void WebsiteFetcher::deleteFile()
 
 struct MemoryStruct 
 {
-  wchar_t *memory;
+  char *memory;
   size_t size;
 };
 
 static size_t WriteMemoryCallback(void *contents, size_t size, size_t nmemb, void *userp)
 {
   size_t realsize = size * nmemb;
+
+
   struct MemoryStruct *mem = (struct MemoryStruct*)userp;
  
-  mem->memory = (wchar_t*)realloc(mem->memory, mem->size + realsize + sizeof(wchar_t)); //+sizeof(wchar_t) for null character at the tail of memory
+  mem->memory = (char*)realloc(mem->memory, mem->size + realsize + sizeof(char)); //+sizeof(wchar_t) for null character at the tail of memory
   if(mem->memory == NULL)
     throw new std::exception("Not enough memory to save data fetched from web. ");
  
-  memcpy(&(mem->memory[mem->size/sizeof(wchar_t)]), contents, realsize);
+  memcpy(&(mem->memory[mem->size/sizeof(char)]), contents, realsize);
   mem->size += realsize;
-  mem->memory[mem->size/sizeof(wchar_t)] = 0; //mark tail of memory
+  mem->memory[mem->size/sizeof(char)] = 0; //mark tail of memory
  
   return realsize;
 }
@@ -83,17 +88,18 @@ static size_t WriteMemoryCallback(void *contents, size_t size, size_t nmemb, voi
 void WebsiteFetcher::getWebsite()
 {
 	struct MemoryStruct chunk;
-	chunk.memory = (wchar_t*)malloc(1);
+	chunk.memory = (char*)malloc(1);
 	chunk.size = 0;   
 	CURL* handle;
 	handle=curl_easy_init(); 
 
-//	curl_easy_setopt(handle, CURLOPT_FOLLOWLOCATION, 1L); //TODO: probably to delete
+
+	//curl_easy_setopt(handle, CURLOPT_FOLLOWLOCATION, 1L); //TODO: probably to delete
+	//curl_easy_setopt(handle, CURLOPT_HTTPHEADER, "Content-Type: text/plain; charset=UTF-16"); //TODO: also to delete probably
 	curl_easy_setopt(handle, CURLOPT_URL, "https://www.diki.pl//slownik-angielskiego?q=dog"); //TODO: refactor link
 	curl_easy_setopt(handle, CURLOPT_WRITEFUNCTION, WriteMemoryCallback);
 	curl_easy_setopt(handle, CURLOPT_WRITEDATA, (void *)&chunk);
 	curl_easy_setopt(handle, CURLOPT_USERAGENT, "libcurl-agent/1.0"); // some servers don't like requests that are made without a user-agent field, so we provide one
-  
 	CURLcode result = curl_easy_perform(handle);
  
 	if(result != CURLE_OK)
@@ -102,19 +108,25 @@ void WebsiteFetcher::getWebsite()
 		(*errMsg)+=curl_easy_strerror(result);
 		throw std::exception(errMsg->c_str()); //TODO: memory leak, change exception
 	}
-	else
+
+	std::wfstream file;
+	file.open("C:\\asd.txt");
+	std::string line;
+	for (int i = 0; i < chunk.size / sizeof(wchar_t); ++i)
 	{
-		std::wstring line;
-		for(int i=0; i<chunk.size/sizeof(wchar_t); ++i)
+		if (chunk.memory[i] == '\n') //end of line
 		{
-			if(chunk.memory[i]==0) //end of line
-			{
-				fetchedCodeLines.push_back(line);
-			}
-			else
-				line.push_back(chunk.memory[i]);
+			std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+			std::wstring wstr = converter.from_bytes(line);
+
+			fetchedCodeLines.push_back(wstr);
+			file << wstr << std::endl;
+			line.clear();
 		}
+		else
+			line.push_back(chunk.memory[i]);
 	}
+
  
   /* cleanup curl stuff */ 
   curl_easy_cleanup(handle);
