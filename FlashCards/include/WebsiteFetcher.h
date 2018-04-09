@@ -1,21 +1,23 @@
 ﻿#pragma once
 #include <string>
-#include <fstream>
 #include <vector>
+
+typedef void CURL;
+
+struct MemoryStruct 
+{
+  char *memory;
+  size_t size;
+};
 
 class WebsiteFetcher
 {
 
 	std::wstring fetchedFilePath;
-	std::wfstream fileHandler;
-	std::vector<std::wstring> codeLines;
 	std::vector<std::wstring> fetchedCodeLines;
 	std::wstring link;
-	std::wstring downloadWebsite(const std::wstring& link);
-	void loadFileIntoMemory();
-	void closeAndDeleteFile();
-	void downloadAndOpenFile(std::wstring link);
-	void deleteFile();
+	void convertToWstringAndSaveInVect(MemoryStruct chunk);
+	void setUpRequest(MemoryStruct& chunk, CURL* & handle);
 	void getWebsite();
 
 public:
@@ -26,4 +28,20 @@ public:
 
 };
 
+class CurlException: public std::exception
+{
+	std::string whatHappened;
+public:
+	CurlException(std::string whatHappened): whatHappened(whatHappened)
+	{
+	}
+
+	char const* what() const override
+	{
+		return whatHappened.c_str();
+	}
+
+};
+
 //TODO: translation for word that doesn't exist
+
