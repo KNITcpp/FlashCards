@@ -9,8 +9,9 @@ std::vector<TransWithExamp> DikiApi::getTranslation(std::wstring toTranslate)
 	std::vector<Example> example;
 	std::wstring line; 
 
+	std::string toTranslateWithoutPolishLetters=convertPolishLetters(toTranslate);
+	std::string link=API_LINK+toTranslateWithoutPolishLetters;
 
-	std::wstring link=API_LINK+toTranslate;
 	WebsiteFetcher websiteFetcher(link);
 
 	bool readyToPush=false;
@@ -53,6 +54,36 @@ std::vector<TransWithExamp> DikiApi::getTranslation(std::wstring toTranslate)
 	return translation;
 }
 
+char DikiApi::convertPolishToAscii(const wchar_t wideLetter)
+{
+	switch(wideLetter)
+	{
+		case L'ę':
+			return 'e';
+		case L'ó':
+			return 'o';
+		case L'ą':
+			return 'a';
+		case L'ś':
+			return 's';
+		case L'ł':
+			return 'l';
+		case L'ż':
+			return 'z';
+		case L'ź':
+			return 'z';
+		case L'ć':
+			return 'c';
+		case L'ń':
+			return 'n';
+	}
+
+	if(wideLetter<0 || wideLetter > 127)
+		throw std::exception("Invalid link. ");
+
+	return static_cast<char>(wideLetter);
+}
+
 bool DikiApi::hasReachedTheEnd(std::wstring line)
 {
 	const std::wstring ENDING_LINE=L"Powiązane zwroty";
@@ -90,7 +121,7 @@ Example DikiApi::convertExampleLine(const std::wstring& firstLine, const std::ws
 {
 	Example example;
 	example.sentence=extractSentence(firstLine);
-	example.translation=extractTranslation(secondLine);
+	example.sentenceTranslation=extractTranslation(secondLine);
 	
 	return example;
 }
@@ -123,11 +154,22 @@ void DikiApi::deleteSpareSpaces(std::wstring& str)
 
 std::wstring DikiApi::extractTranslation(const std::wstring& line)
 {
-	// cuts out sentence from line formated this way: [spaces](translation)
+	// cuts out sentence from line formated this way: [spaces](sentenceTranslation)
 	int lengthOfTranslation=line.find(')') - line.find_first_not_of(' ')-1;//-1 to exclude begining '('
 	std::wstring translation=line.substr(line.find_first_not_of(' ')+1, lengthOfTranslation); //+1 to skip begining '('
 
 	return translation;
+}
+
+std::string DikiApi::convertPolishLetters(const std::wstring& strWithPolishLetters)
+{
+	std::string withoutPolish;
+	for(int i=0; i<strWithPolishLetters.size();++i)
+	{
+		char asciiLetter=convertPolishToAscii(strWithPolishLetters[i]);
+		withoutPolish+=asciiLetter;
+	}
+	return withoutPolish;
 }
 
 

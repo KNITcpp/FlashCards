@@ -5,12 +5,12 @@
 struct Example
 {
 	std::wstring sentence;
-	std::wstring translation;
+	std::wstring sentenceTranslation;
 
 	Example()=default;
 	Example(const std::wstring& sentence, const std::wstring& translation)
 		: sentence(sentence),
-		  translation(translation)
+		  sentenceTranslation(translation)
 	{
 	}
 };
@@ -28,7 +28,7 @@ struct TransWithExamp
 
 class DikiApi
 {
-	const std::wstring API_LINK = L"https://www.diki.pl/slownik-angielskiego?q=";
+	const std::string API_LINK = "https://www.diki.pl/slownik-angielskiego?q=";
 	std::wstring convertTranslationLine(std::wstring line);
 
 	bool hasFoundLinePrecedingTranslation(std::wstring line);
@@ -39,8 +39,11 @@ class DikiApi
 	void fixProblemWithSingleQuotationMark(std::wstring& sentence);
 	std::wstring extractSentence(const std::wstring& firstLine);
 	std::wstring extractTranslation(const std::wstring& secondLine);
+	std::string convertPolishLetters(const std::wstring& strWithPolishLetters);
+	char convertPolishToAscii(const wchar_t wideLetter);
 public:
 	std::vector<TransWithExamp> getTranslation(std::wstring toTranslate);
+
 };
 
 

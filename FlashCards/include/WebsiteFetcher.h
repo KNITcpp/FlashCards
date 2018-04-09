@@ -13,13 +13,13 @@ struct MemoryStruct
 class WebsiteFetcher
 {
 	std::vector<std::wstring> fetchedCodeLines;
-	std::wstring link;
+	std::string link;
 	void convertToWstringAndSaveInVect(MemoryStruct chunk);
 	void setUpRequest(MemoryStruct& chunk, CURL* & handle);
 	void getWebsite();
 
 public:
-	explicit WebsiteFetcher(std::wstring link); // throws std::exception;
+	explicit WebsiteFetcher(std::string link); // throws std::exception;
 	~WebsiteFetcher();
 	std::wstring getLineOfCode(int index);
 	int getLinesQuantity() const;
@@ -40,6 +40,3 @@ public:
 	}
 
 };
-
-//TODO: translation for word that doesn't exist
-

@@ -4,7 +4,7 @@ class WebsiteFetcherTest: public ::testing::Test
 {
 protected:
 	WebsiteFetcher existingWebsite;
-	WebsiteFetcherTest(): existingWebsite(L"http://www.example.com"){}
+	WebsiteFetcherTest(): existingWebsite("http://www.example.com"){}
 };
 
 
@@ -26,7 +26,30 @@ TEST_F(WebsiteFetcherTest, gettingExistingLines)
 
 }
 
+TEST(FetchingWebsiteWithoutPrefix, AlwaysSuccedes)
+{
+	WebsiteFetcher w1("www.google.com");
+	EXPECT_NE(w1.getLinesQuantity(), 0);
 
+	WebsiteFetcher w2("google.com");
+	EXPECT_NE(w1.getLinesQuantity(), 0);
+}
+
+TEST(FetchingAFewWebsitesAtOneSession, AlwaysSuccedes)
+{
+	ASSERT_NO_THROW(
+		WebsiteFetcher w1("www.google.com");
+		WebsiteFetcher w2("http://www.example.com");
+		WebsiteFetcher w3("https://ebay.com");
+	);
+
+	WebsiteFetcher w1("www.google.com");
+	EXPECT_NE(w1.getLinesQuantity(),0);
+	WebsiteFetcher w2("http://www.example.com");
+	EXPECT_NE(w2.getLinesQuantity(),0);
+	WebsiteFetcher w3("https://www.ebay.com");
+	EXPECT_NE(w3.getLinesQuantity(),0);
+}
 
 
 

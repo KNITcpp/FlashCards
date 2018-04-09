@@ -10,10 +10,9 @@
 
 
 
-WebsiteFetcher::WebsiteFetcher(std::wstring link): link(link)
+WebsiteFetcher::WebsiteFetcher(std::string link): link(link)
 {
-	curl_global_init(CURL_GLOBAL_ALL); //TODO: check if it's ok to call it every time new object is created (and curl_global_cleanup() in destructor also)
-
+	curl_global_init(CURL_GLOBAL_ALL);
 	getWebsite();
 }
 
@@ -63,7 +62,7 @@ void WebsiteFetcher::setUpRequest(MemoryStruct& chunk, CURL* & handle)
 	chunk.memory = (char*)malloc(1);
 	chunk.size = 0; 
 	handle=curl_easy_init(); 
-	curl_easy_setopt(handle, CURLOPT_URL, "https://www.diki.pl//slownik-angielskiego?q=dog"); //TODO: refactor link
+	curl_easy_setopt(handle, CURLOPT_URL, link.c_str());
 	curl_easy_setopt(handle, CURLOPT_WRITEFUNCTION, WriteMemoryCallback);
 	curl_easy_setopt(handle, CURLOPT_WRITEDATA, (void *)&chunk);
 	curl_easy_setopt(handle, CURLOPT_USERAGENT, "libcurl-agent/1.0"); // some servers don't like requests that are made without a user-agent field, so we provide one

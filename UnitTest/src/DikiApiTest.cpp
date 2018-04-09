@@ -1,6 +1,7 @@
 #include "DikiApi.h"
 #include "gtest/gtest.h"
 
+
 class DikiApiTest: public testing::Test
 {
 protected:
@@ -184,11 +185,23 @@ TEST_F(DikiApiTest, getTranslation)
 		for(int k=0; k<validResult[i].example.size(); ++k)
 		{
 			EXPECT_EQ(validResult[i].example[k].sentence, translation[i].example[k].sentence);
-			EXPECT_EQ(validResult[i].example[k].translation, translation[i].example[k].translation);
+			EXPECT_EQ(validResult[i].example[k].sentenceTranslation, translation[i].example[k].sentenceTranslation);
 		}
 
 	}
 }
 
+TEST(TranslatingNotExistingWord, alwaysReturnNothing)
+{
+	const std::wstring NOT_EXISTING_WORD=L"asdasdasdasdasdasdasd";
+	DikiApi api;
+	std::vector<TransWithExamp> translation=api.getTranslation(NOT_EXISTING_WORD);
+
+	EXPECT_EQ(translation.size(), 0);
+}
+
+
+
+//TODO: test translations in a row
 
 
