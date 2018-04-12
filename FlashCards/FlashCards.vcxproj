@@ -162,14 +162,18 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\CardPlayer.cpp" />
     <ClCompile Include="src\DikiApi.cpp" />
+    <ClCompile Include="src\FirstElementInjector.cpp" />
     <ClCompile Include="src\Round.cpp" />
     <ClCompile Include="src\Flashcard.cpp" />
     <ClCompile Include="src\Source.cpp" />
     <ClCompile Include="src\WebsiteFetcher.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\CardPlayer.h" />
     <ClInclude Include="include\DikiApi.h" />
+    <ClInclude Include="include\FirstElementInjector.h" />
     <ClInclude Include="include\Flashcard.h" />
     <ClInclude Include="include\Round.h" />
     <ClInclude Include="include\StudyMode.h" />
