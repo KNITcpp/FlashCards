@@ -47,7 +47,7 @@ void Flashcard::addBadAnswer() noexcept
 	++badAnswers_;
 }
 
-void Flashcard::addUsage(const std::chrono::system_clock::time_point& usageDate)
+void Flashcard::addUsage(const std::chrono::system_clock::time_point& usageDate )
 {
 	lastUsages_.push_back(usageDate);
 }

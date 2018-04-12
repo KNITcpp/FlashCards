@@ -8,7 +8,8 @@ using timeVector = std::vector<std::chrono::system_clock::time_point>;
 class Flashcard
 {
 public:
-	Flashcard(const std::string& word, const std::string& translation, const int goodAnswers = 0, const int badAnswers = 0) noexcept;
+	Flashcard(const std::string& word, const std::string& translation,
+		const int goodAnswers = 0, const int badAnswers = 0) noexcept;
 	Flashcard(const Flashcard& rhs) = default;
 	Flashcard(Flashcard&& rhs) = default;
 	virtual ~Flashcard() = default;
@@ -22,7 +23,7 @@ public:
 	timeVector getLastUsages() const noexcept;
 	void addGoodAnswer() noexcept;
 	void addBadAnswer() noexcept;
-	void addUsage(const std::chrono::system_clock::time_point& usageDate);
+	void addUsage(const std::chrono::system_clock::time_point& usageDate = std::chrono::system_clock::now());
 private:
 	std::string word_;
 	std::string translation_;

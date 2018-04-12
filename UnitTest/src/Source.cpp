@@ -1,7 +1,6 @@
 #include "gtest/gtest.h"
 #include <iostream>
 
-
 void forBegginers()
 {
 	std::cout << "You can do whatever you want\n";

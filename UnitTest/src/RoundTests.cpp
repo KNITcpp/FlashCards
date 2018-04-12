@@ -3,7 +3,7 @@
 #include "Round.h"
 #include "StudyMode.h"
 
-class FakeAlwaysTrueStudyMode : public StudyMode
+class MockDoNothingStudyMode : public StudyMode
 {
 public:
 	bool performFlashcard(const Flashcard& flashcard) override
@@ -23,14 +23,14 @@ public:
 	ARound() : round(flashcards, &mode) {}
 public:
 	std::vector<Flashcard> flashcards;
-	FakeAlwaysTrueStudyMode mode;
+	MockDoNothingStudyMode mode;
 	Round round;
 };
 
 
-TEST_F(ARound, HasZeroCardsToGoWhenCreated)
+TEST_F(ARound, HasZeroCardsInRoundWhenCreated)
 {
-	ASSERT_EQ(round.cardsToGo(), 0);
+	ASSERT_EQ(round.cardsInRound(), 0);
 }
 
 
@@ -38,6 +38,7 @@ TEST_F(ARound, IsEmptyWhenCreated)
 {
 	ASSERT_TRUE(round.isEmpty());
 }
+
 
 
 class ARoundWithOneFlashcard : public ::testing::Test
@@ -49,7 +50,7 @@ public:
 		flashcards.emplace_back("word", "translation");
 	}
 	std::vector<Flashcard> flashcards;
-	FakeAlwaysTrueStudyMode mode;
+	MockDoNothingStudyMode mode;
 	Round round;
 };
 
@@ -60,9 +61,9 @@ TEST_F(ARoundWithOneFlashcard, isNoLongerEmptyAfterFlashcardsAdded)
 }
 
 
-TEST_F(ARoundWithOneFlashcard, HasOneCardToGo)
+TEST_F(ARoundWithOneFlashcard, HasOneCardInRound)
 {
-	ASSERT_EQ(round.cardsToGo(), 1);
+	ASSERT_EQ(round.cardsInRound(), 1);
 }
 
 
@@ -77,8 +78,9 @@ TEST_F(ARoundWithOneFlashcard, InvokesStudyMode)
 {
 	round.play();
 
-	EXPECT_TRUE(mode.wasInvoked());
+	ASSERT_TRUE(mode.wasInvoked());
 }
+
 
 
 class ARoundWithTwoFlashcards : public ::testing::Test
@@ -91,9 +93,10 @@ public:
 		flashcards.emplace_back("word2", "translation2");
 	}
 	std::vector<Flashcard> flashcards;
-	FakeAlwaysTrueStudyMode mode;
+	MockDoNothingStudyMode mode;
 	Round round;
 };
+
 
 TEST_F(ARoundWithTwoFlashcards, PlaysTheFirstCard)
 {
@@ -104,16 +107,18 @@ TEST_F(ARoundWithTwoFlashcards, PlaysTheFirstCard)
 
 
 TEST_F(ARoundWithTwoFlashcards, PlaysAllCards)
-{
+{;
 	round.play();
 
 	ASSERT_EQ(flashcards[0].getLastUsages().size(), 1);
 	ASSERT_EQ(flashcards[1].getLastUsages().size(), 1);
 }
 
-TEST(ARoundWithNullptrMode, ThrowsLogicException)
+
+TEST(ARoundWithNullptrStudyMode, ThrowsLogicExceptionDuringConstruction)
 {
 	std::vector<Flashcard> flashcards;
 
-	ASSERT_THROW(Round(flashcards, nullptr), std::logic_error);
+	StudyMode* invalidStudyMode = nullptr;
+	ASSERT_THROW(Round(flashcards, invalidStudyMode), std::logic_error);
 }
