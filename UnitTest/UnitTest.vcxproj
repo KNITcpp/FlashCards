@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -91,7 +91,8 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)FlashCards\include;$(SolutionDir)dependencies\googletest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\curl\include;$(SolutionDir)FlashCards\include;$(SolutionDir)dependencies\googletest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)FlashCards\bin\$(Platform)\$(Configuration)\;$(SolutionDir)dependencies\googletest\bin\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -104,7 +105,8 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)FlashCards\include;$(SolutionDir)dependencies\googletest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\curl\include;$(SolutionDir)FlashCards\include;$(SolutionDir)dependencies\googletest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)FlashCards\bin\$(Platform)\$(Configuration)\;$(SolutionDir)dependencies\googletest\bin\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -119,7 +121,8 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)FlashCards\include;$(SolutionDir)dependencies\googletest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\curl\include;$(SolutionDir)FlashCards\include;$(SolutionDir)dependencies\googletest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -136,7 +139,8 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)FlashCards\include;$(SolutionDir)dependencies\googletest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\curl\include;$(SolutionDir)FlashCards\include;$(SolutionDir)dependencies\googletest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -148,6 +152,7 @@
   <ItemGroup>
     <ClCompile Include="src\CardPlayerTests.cpp" />
     <ClCompile Include="src\FirstCardInjectorTests.cpp" />
+    <ClCompile Include="src\DikiApiTest.cpp" />
     <ClCompile Include="src\FlashcardTests.cpp" />
     <ClCompile Include="src\RoundWithAlwaysBadAnswerTests.cpp" />
     <ClCompile Include="src\RoundWithAlwaysCorrectAnswerTests.cpp" />
@@ -155,6 +160,7 @@
     <ClCompile Include="src\Session.cpp" />
     <ClCompile Include="src\SessionTests.cpp" />
     <ClCompile Include="src\Source.cpp" />
+    <ClCompile Include="src\WebsiteFetcherTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Session.h" />

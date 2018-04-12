@@ -15,7 +15,7 @@ public:
 };
 
 const std::string FlashcardTest::word = "visual";
-const std::string FlashcardTest::translation = "vizualny";
+const std::string FlashcardTest::translation = "wizualny";
 
 
 TEST_F(FlashcardTest, getWord_WhenCalled_ReturnsWordValue)
