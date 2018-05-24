@@ -154,14 +154,14 @@
     <ClCompile Include="src\FirstCardInjectorTests.cpp" />
     <ClCompile Include="src\EnglishTranslation.cpp" />
     <ClCompile Include="src\FlashcardTests.cpp" />
-    <ClCompile Include="src\PolishTranslation.cpp" />
     <ClCompile Include="src\RoundWithAlwaysBadAnswerTests.cpp" />
     <ClCompile Include="src\RoundWithAlwaysCorrectAnswerTests.cpp" />
     <ClCompile Include="src\RoundTests.cpp" />
-    <ClCompile Include="src\Session.cpp" />
     <ClCompile Include="src\SessionTests.cpp" />
     <ClCompile Include="src\Source.cpp" />
+    <ClCompile Include="src\StringWordSplitterTest.cpp" />
     <ClCompile Include="src\WebsiteFetcherTest.cpp" />
+    <ClCompile Include="src\WordDatabaseCreatorTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Session.h" />

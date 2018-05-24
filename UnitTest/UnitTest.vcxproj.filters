@@ -39,16 +39,16 @@
     <ClCompile Include="src\RoundWithAlwaysCorrectAnswerTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Session.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\SessionTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\EnglishTranslation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\PolishTranslation.cpp">
+    <ClCompile Include="src\WordDatabaseCreatorTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\StringWordSplitterTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

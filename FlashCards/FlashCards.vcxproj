@@ -167,8 +167,11 @@
     <ClCompile Include="src\FirstElementInjector.cpp" />
     <ClCompile Include="src\Round.cpp" />
     <ClCompile Include="src\Flashcard.cpp" />
+    <ClCompile Include="src\Session.cpp" />
     <ClCompile Include="src\Source.cpp" />
+    <ClCompile Include="src\StringWordSplitter.cpp" />
     <ClCompile Include="src\WebsiteFetcher.cpp" />
+    <ClCompile Include="src\WordDatabaseCreator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\CardPlayer.h" />
@@ -176,8 +179,11 @@
     <ClInclude Include="include\FirstElementInjector.h" />
     <ClInclude Include="include\Flashcard.h" />
     <ClInclude Include="include\Round.h" />
+    <ClInclude Include="include\Session.h" />
+    <ClInclude Include="include\StringWordSplitter.h" />
     <ClInclude Include="include\StudyMode.h" />
     <ClInclude Include="include\WebsiteFetcher.h" />
+    <ClInclude Include="include\WordDatabaseCreator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

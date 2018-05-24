@@ -27,6 +27,7 @@ struct TransWithExamp
 		: word(word), translation(translation), example(example) {}
 };
 
+//Works only for translations from English to Polish
 class DikiApi
 {
 	const std::string API_LINK = "https://www.diki.pl/slownik-angielskiego?q=";
