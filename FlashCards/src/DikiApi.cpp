@@ -23,7 +23,30 @@ std::vector<TransWithExamp> DikiApi::getTranslation(std::wstring toTranslate)
 		if(hasReachedTheEnd(line))
 			break;
 
-		if(hasFoundLinePrecedingTranslation(line))
+		if(hasFoundLinePrecedingWordToTranslate(line))
+		{
+			if(readyToPush==true)
+			{
+				translation.emplace_back(toTranslate, singleTranslation, example);
+
+				example.resize(0);
+				readyToPush=false;
+			}
+
+			std::wstring wordToTranslate;
+			while(!hasFoundLineFollowingWordToTranslate(line) && i<websiteFetcher.getLinesQuantity())
+			{
+				++i;
+				line = websiteFetcher.getLineOfCode(i);
+				wordToTranslate+=line;
+			}
+
+			deleteHtmlTags(wordToTranslate);
+			deleteSpareSpaces(wordToTranslate);
+			deleteSpareStars(wordToTranslate);
+			toTranslate=wordToTranslate;
+		}
+		else if(hasFoundLinePrecedingTranslation(line))
 		{
 			if(readyToPush==true)
 			{
@@ -82,6 +105,40 @@ char DikiApi::convertPolishToAscii(const wchar_t wideLetter)
 		throw std::exception("Invalid link. ");
 
 	return static_cast<char>(wideLetter);
+}
+
+bool DikiApi::hasFoundLinePrecedingWordToTranslate(const std::wstring& line)
+{
+	std::wsmatch match;
+	std::wregex linePrecedingWordToTranslateRegex(LR"([[:space:]]*<h1>[[:space:]]*<span class=\"hw\">[[:space:]]*)");
+	bool hasFound=std::regex_search(line, match, linePrecedingWordToTranslateRegex);
+/*	std::string str=R"(      <h1>    <span class="hw">)";
+	std::regex r(R"("[[:space:]]*<h1>[[:space:]]*<span class="hw">[[:space:]]*")");
+	std::smatch m;
+	bool f=std::regex_search(str, m, r);*/
+	return hasFound;
+}
+
+
+
+bool DikiApi::hasFoundLineFollowingWordToTranslate(const std::wstring& line)
+{
+	const std::wstring lineFollowingWordToTranslate=L"    </h1>    </div>";
+	return line==lineFollowingWordToTranslate;
+}
+
+void DikiApi::deleteHtmlTags(std::wstring& text)
+{
+	std::wstring emptyStr=L"";
+	std::wstring htmlTag = std::wstring(L"<[[:print:]]+?>");
+	text = std::regex_replace(text, std::wregex(htmlTag), emptyStr);
+}
+
+void DikiApi::deleteSpareStars(std::wstring& text)
+{
+	std::wstring emptyStr=L"";
+	std::wstring star = std::wstring(L"[*]");
+	text = std::regex_replace(text, std::wregex(star), emptyStr);
 }
 
 bool DikiApi::hasReachedTheEnd(std::wstring line)
@@ -143,6 +200,9 @@ void DikiApi::fixProblemWithSingleQuotationMark(std::wstring &sentence)
 	size_t pos;
 	while((pos=sentence.find(TO_REPLACE))!=std::wstring::npos)
 		sentence.replace(pos, TO_REPLACE.length(), L"'");
+
+	std::wstring quotationMark=std::wstring(L"&quot;");
+	sentence = std::regex_replace(sentence, std::wregex(quotationMark), L"\"");
 }
 
 void DikiApi::deleteSpareSpaces(std::wstring& str)
@@ -158,6 +218,7 @@ std::wstring DikiApi::extractTranslation(const std::wstring& line)
 	int lengthOfTranslation=line.find(')') - line.find_first_not_of(' ')-1;//-1 to exclude begining '('
 	std::wstring translation=line.substr(line.find_first_not_of(' ')+1, lengthOfTranslation); //+1 to skip begining '('
 
+	fixProblemWithSingleQuotationMark(translation);
 	return translation;
 }
 

@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include <string>
 #include <vector>
+#include "WebsiteFetcher.h"
 
 struct Example
 {
@@ -41,6 +42,10 @@ class DikiApi
 	std::wstring extractTranslation(const std::wstring& secondLine);
 	std::string convertPolishLetters(const std::wstring& strWithPolishLetters);
 	char convertPolishToAscii(const wchar_t wideLetter);
+	bool hasFoundLinePrecedingWordToTranslate(const std::wstring& line);
+	bool hasFoundLineFollowingWordToTranslate(const std::wstring& line);
+	void deleteHtmlTags(std::wstring& text);
+	void deleteSpareStars(std::wstring& text);
 public:
 	std::vector<TransWithExamp> getTranslation(std::wstring toTranslate);
 

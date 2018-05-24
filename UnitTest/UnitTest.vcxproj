@@ -152,8 +152,9 @@
   <ItemGroup>
     <ClCompile Include="src\CardPlayerTests.cpp" />
     <ClCompile Include="src\FirstCardInjectorTests.cpp" />
-    <ClCompile Include="src\DikiApiTest.cpp" />
+    <ClCompile Include="src\EnglishTranslation.cpp" />
     <ClCompile Include="src\FlashcardTests.cpp" />
+    <ClCompile Include="src\PolishTranslation.cpp" />
     <ClCompile Include="src\RoundWithAlwaysBadAnswerTests.cpp" />
     <ClCompile Include="src\RoundWithAlwaysCorrectAnswerTests.cpp" />
     <ClCompile Include="src\RoundTests.cpp" />
