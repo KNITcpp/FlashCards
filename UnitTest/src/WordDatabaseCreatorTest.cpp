@@ -52,9 +52,16 @@ TEST(AWordDatabaseCreator, AlwaysIsCaseInsensitive)
 	testIfWordWithFreqInside(occuredWords, L"six", 2);
 }
 
+TEST(AWordDatabaseCreator, WordWithPunctuationMarkIsTheSameAsWithout) // for example for string like "something, something" the result will be that something has occured two times, not that once "something," and once "something"
+{
+	WordDatabaseCreator database;
+	std::wstring exampleText= L"something, something. something something! something... ,something";
+	database.process(exampleText);
 
-
-
-//TODO: test for creation of database based on string like "something, something" and check if something won't be duplicated twice: once with comma, once without
+	std::unordered_map<std::wstring/*word*/, int /*occurences*/> occuredWords = database.getWords();
+	ASSERT_NE(occuredWords.size(), 0);
+	EXPECT_EQ(occuredWords.size(), 1);
+	testIfWordWithFreqInside(occuredWords, L"something", 6);
+}
 
 //TODO: add regexes
