@@ -1,6 +1,8 @@
 #include <vector>
 #include "WordDatabaseCreator.h"
 #include "StringWordSplitter.h"
+#include <algorithm>
+#include <iterator>
 
 
 std::unordered_map<std::wstring/*word*/, int /*occurences*/> WordDatabaseCreator::getWords()
@@ -10,8 +12,9 @@ std::unordered_map<std::wstring/*word*/, int /*occurences*/> WordDatabaseCreator
 
 void WordDatabaseCreator::process(const std::wstring& str)
 {
-
-	StringWordSplitter splitter(str);
+	std::wstring toLowerStr;
+	std::transform(str.begin(), str.end(), std::insert_iterator<std::wstring>(toLowerStr, toLowerStr.begin()), tolower);
+	StringWordSplitter splitter(toLowerStr);
 
 	for(int i=0; i<splitter.size(); ++i)
 	{
@@ -31,6 +34,3 @@ void WordDatabaseCreator::process(const std::wstring& str)
 
 	//TODO: check if it doesn't append endl char also
 }
-
-
-//TODO: test for creation of database based on string like "something, something" and check if something won't be duplicated twice: once with comma, once without

@@ -34,8 +34,27 @@ TEST(AWordDatabaseCreator, AlwaysProcessesAllWordsIfRegexNotSet)
 	testIfWordWithFreqInside(occuredWords, L"six", 2);
 }
 
+TEST(AWordDatabaseCreator, AlwaysIsCaseInsensitive)
+{
+	WordDatabaseCreator database;
+	std::wstring exampleText= L"oNe one ONE twO ThReE FOUR four five Six six";
+
+	database.process(exampleText);
+	std::unordered_map<std::wstring/*word*/, int /*occurences*/> occuredWords = database.getWords();
+	ASSERT_NE(occuredWords.size(), 0);
+	EXPECT_EQ(occuredWords.size(), 6);
+
+	testIfWordWithFreqInside(occuredWords, L"one", 3);
+	testIfWordWithFreqInside(occuredWords, L"two", 1);
+	testIfWordWithFreqInside(occuredWords, L"three", 1);
+	testIfWordWithFreqInside(occuredWords, L"four", 2);
+	testIfWordWithFreqInside(occuredWords, L"five", 1);
+	testIfWordWithFreqInside(occuredWords, L"six", 2);
+}
 
 
 
-//TODO: test case insensitivity
+
+//TODO: test for creation of database based on string like "something, something" and check if something won't be duplicated twice: once with comma, once without
+
 //TODO: add regexes
