@@ -40,6 +40,4 @@ void WordDatabaseCreator::process(const std::wstring& str)
 			++(*iterToInsertedElem).second;
 		}
 	}
-
-	//TODO: check if it doesn't append endl char also
 }

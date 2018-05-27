@@ -162,6 +162,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\FileReader.cpp" />
     <ClCompile Include="src\CardPlayer.cpp" />
     <ClCompile Include="src\DikiApi.cpp" />
     <ClCompile Include="src\FirstElementInjector.cpp" />
@@ -176,6 +177,7 @@
   <ItemGroup>
     <ClInclude Include="include\CardPlayer.h" />
     <ClInclude Include="include\DikiApi.h" />
+    <ClInclude Include="include\FileReader.h" />
     <ClInclude Include="include\FirstElementInjector.h" />
     <ClInclude Include="include\Flashcard.h" />
     <ClInclude Include="include\Round.h" />

@@ -456,5 +456,10 @@ TEST(TranslatingNotExistingWord, alwaysReturnNothing)
 
 
 //TODO: test translations in a row
-
-
+//TODO: change file name to DikiApiTest
+//TODO: mock websiteFetcher
+//TODO: split unit tests and integration tests into separate projects
+//TODO: split class DikiApi and WebsiteFetcher into 3 separate classess: one that fetches website code, second that interprets this code and gets translations from it, third that combines the first two and makes api for Diki. First two classes should be tested by unit tests and third by integration test
+//TODO: delete loops from tests
+//TODO: apply KISS rule, 
+//TODO: move data from fixture's constructors to tests' body

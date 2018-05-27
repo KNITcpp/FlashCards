@@ -10,6 +10,7 @@ class WordDatabaseCreator
 public:
 	std::unordered_map<std::wstring/*word*/, int /*occurences*/> getWords();
 	void process(const std::wstring& str);
+
 };
 
 class WordWithFrequency

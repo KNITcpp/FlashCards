@@ -64,4 +64,5 @@ TEST(AWordDatabaseCreator, WordWithPunctuationMarkIsTheSameAsWithout) // for exa
 	testIfWordWithFreqInside(occuredWords, L"something", 6);
 }
 
+
 //TODO: add regexes

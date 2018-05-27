@@ -99,6 +99,24 @@ char DikiApi::convertPolishToAscii(const wchar_t wideLetter)
 			return 'c';
 		case L'ń':
 			return 'n';
+		case L'Ę':
+			return 'E';
+		case L'Ó':
+			return 'O';
+		case L'Ą':
+			return 'A';
+		case L'Ś':
+			return 'S';
+		case L'Ł':
+			return 'L';
+		case L'Ż':
+			return 'Z';
+		case L'Ź':
+			return 'Z';
+		case L'Ć':
+			return 'C';
+		case L'Ń':
+			return 'N';
 	}
 
 	if(wideLetter<0 || wideLetter > 127)
