@@ -15,7 +15,7 @@ public:
 };
 
 const std::string FlashcardTest::word = "visual";
-const std::string FlashcardTest::translation = "vizualny";
+const std::string FlashcardTest::translation = "wizualny";
 
 
 TEST_F(FlashcardTest, getWord_WhenCalled_ReturnsWordValue)
@@ -75,25 +75,3 @@ TEST_F(FlashcardTest, addUsage_WhenCalled_InsertsElemntIntoLastUsages)
 	timeVector tv = fc.getLastUsages();
 	EXPECT_EQ(epochTime, tv.back());
 }
-
-TEST_F(FlashcardTest, Constructor_Always_InitializesEverything)
-{
-	EXPECT_EQ(word, fc.getWord());
-	EXPECT_EQ(translation, fc.getTranslation());
-	EXPECT_EQ(goodAnswers, fc.getGoodAnswers());
-	EXPECT_EQ(badAnswers, fc.getBadAnswers());
-}
-
-TEST_F(FlashcardTest, CopyConstructor_Always_CopiesWordAndTranslation)
-{
-	Flashcard fc1(fc);
-	EXPECT_EQ(fc1.getWord(), fc.getWord());
-	EXPECT_EQ(fc1.getTranslation(), fc.getTranslation());
-} 
-
-TEST_F(FlashcardTest, CopyConstructor_Always_SetsGoodAnswersAndBadAnswersToZero)
-{
-	Flashcard fc1(fc);
-	EXPECT_EQ(fc1.getGoodAnswers(), 0);
-	EXPECT_EQ(fc1.getBadAnswers(), 0);
-} 

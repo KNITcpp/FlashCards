@@ -261,5 +261,6 @@ __pycache__/
 *.pyc
 
 #compilation files
-*/bin/*
-*/curl/build/*
+bin/
+build/
+
